@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+ 
+</head>
+<body >
+<div class="container">
+<div class="row">
+<div class="page-header">
+<h1>Registration</h1>
+</div>
+<form class="form-horizontal"  [formGroup]="registrationForm" (ngSubmit)="registeUser()">
+ 
+<div class="form-group">
+<label for="firstName" class="col-sm-2 control-label">First Name:</label>
+<div class="col-sm-6">
+<input type="text"  class="form-control" id="firstName" formControlName="firstName" [(ngModel)]="firstName" placeholder="First Name"  name="firstName" required>
+<div class="errorMessage" *ngIf="registrationForm.get('firstName').touched && registrationForm.get('firstName').hasError('pattern')">
+  Please Enter Characters only
+ </div>
+</div>
+</div>
+ 
+<div class="form-group">
+<label for="lastName" class="col-sm-2 control-label">Last Name:</label>
+<div class="col-sm-6">
+<input type="text" name="lastName" class="form-control" id="lastName" placeholder="Last Name" formControlName="lastName" [(ngModel)]="lastName">
+<div class="errorMessage" *ngIf="registrationForm.get('lastName').touched && registrationForm.get('lastName').hasError('pattern')">
+  Please Enter Characters only
+ </div>
+</div>
+</div>
+
+<div class="form-group">
+<label for="dob" class="col-sm-2 control-label">DOB:</label>
+<div class="col-sm-6">
+<div class="input-append date form_datetime">
+ <input type="date" format="yyyy-mm-dd" name="query-Date" formControlName="dob" [(ngModel)]="dob"/>
+   </div>
+</div>
+</div>
+
+
+<!-- <div class="form-group ">
+ <label for="date" class="col-sm-2 control-label">DOB</label>
+   <div class="col-sm-4">
+ <div class="input-append date form_datetime">
+ <input type="date" format="yyyy-mm-dd" name="query-Date" formControlName="dob" [(ngModel)]="dob"/>
+   </div>
+  </div>   
+</div> -->
+ 
+<div class="form-group">
+<label for="email" class="col-sm-2 control-label">Email ID</label>
+<div class="col-sm-6">
+<input type="text" name="email" class="form-control" id="email" placeholder="Enter email Id" formControlName="email" [(ngModel)]="email">
+<div class="errorMessage" *ngIf="registrationForm.get('email').touched && registrationForm.get('email').hasError('pattern')">
+  Please Enter Valid Email
+ </div>
+</div>
+</div>
+
+<div class="form-group">
+<label for="street" class="col-sm-2 control-label">Street Name</label>
+<div class="col-sm-6">
+<input type="text" name="street" class="form-control" id="street" placeholder="Enter street Name" formControlName="street" [(ngModel)]="street">
+ <!-- <div class="errorMessage" *ngIf="registrationForm.get('street').touched && registrationForm.get('street').pristine">
+  Please Enter street name
+ </div>  -->
+</div>
+</div>
+
+<div class="form-group">
+<label for="zip" class="col-sm-2 control-label">Zip Code</label>
+<div class="col-sm-6">
+<input type="text" name="zipcode" class="form-control" id="zipcode" placeholder="Enter Zip code"formControlName="zipcode" [(ngModel)]="zipcode">
+<div class="errorMessage" *ngIf="registrationForm.get('zipcode').touched && registrationForm.get('zipcode').hasError('pattern')">
+  Please number only
+ </div>
+</div>
+</div>
+
+<div class="form-group">
+    <label for="city" class="col-sm-2 control-label">City</label>
+<div class="col-sm-6">
+ <select class="currency-list form-control" #selectedCity (change)="callType(selectedCity.value)" formControlName="city" >
+                   <option value="" selected disabled>Select city </option>
+                <option *ngFor="let city of cities" [value]="city">{{city}}</option>
+              </select>
+</div>
+            <!-- <div class="errorMessage" *ngIf="registrationForm.get('city').touched && registrationForm.get('city').hasError('pattern')">
+  Please select City
+ </div> -->
+</div>
+
+<div class="form-group">
+      <label for="country" class="col-sm-2 control-label">Country</label>
+<div class="col-sm-6" >
+ <select class="currency-list form-control" #selectedCountry (change)="selectCnt(selectedCountry.value)" formControlName="country" >
+                   <option value="" selected disabled>select country </option>
+                <option *ngFor="let cn of country"[value]="cn"  >{{cn}}</option>
+              </select>
+</div>
+             <!-- <div class="errorMessage" *ngIf="registrationForm.get('country').touched && registrationForm.get('country').hasError('pattern')">
+  Please select country
+ </div> -->
+</div>
+    
+ 
+<div class="form-group">
+<label for="passwd" class="col-sm-2 control-label">Password:</label>
+<div class="col-sm-6">
+<input type="password" name="password" class="form-control" id="password" placeholder="Password" formControlName="password" [(ngModel)]="password" required>
+<div class="errorMessage" *ngIf="registrationForm.get('password').touched && registrationForm.get('password').pristine">
+  Please enter password
+ </div>
+</div>
+</div>
+
+<div class="form-group">
+<label for="confirmpasswd" class="col-sm-2 control-label">Confirm Password:</label>
+<div class="col-sm-6">
+<input type="password" name="confirmpasswd" class="form-control" id="confirmpasswd" formControlName="confirmpasswd" [(ngModel)]="confirmpasswd" placeholder="Confirm Password" >
+<div class="errorMessage" *ngIf="registrationForm.get('confirmpasswd').touched && registrationForm.get('confirmpasswd').hasError('notEquivalent')">
+  Passwords do not match
+</div>
+</div>
+</div>
+ 
+<div class="form-group">
+<div class="col-sm-offset-2 col-sm-10">
+<button type="submit" class="btn btn-primary" id="register" [disabled]="registrationForm.invalid">Register</button>
+</div>
+</div>
+ 
+</form>
+ 
+</div><!-- end for class "row" -->
+</div><!-- end for class "container" -->
+</body>
+</html>

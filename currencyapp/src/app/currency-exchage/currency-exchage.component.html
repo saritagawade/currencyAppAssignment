@@ -1,0 +1,137 @@
+<html>
+<head>
+
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(".form_datetime").datetimepicker({
+        format: "dd MM yyyy - hh:ii",
+        autoclose: true,
+        todayBtn: true,
+        pickerPosition: "bottom-left"
+    });
+</script> 
+</head>
+<body>
+  
+<div class="container">
+<div class="row">
+<div class="page-header">
+<h1>Exchange Currency</h1>
+</div>
+        <!-- <div class="error">
+          Please enter numeric value
+        </div> -->
+        
+          <form [formGroup]="currencyExchangeForm" class="form-horizontal">
+            <div class="form-group">
+                    <label for="enter value" class="col-sm-2 control-label" >Enter Value:</label>
+                    <div class="col-sm-6">
+                    <input type="number" class="amount form-control" placeholder="Enter value" min="1" formControlName="exchangeValue" name="exchangeValue" [(ngModel)]="exchangeValue">
+                    </div>
+              </div>
+
+            <div class="form-group ">
+                    <label for="From Currency" class="col-sm-2 control-label">Select FromCurrency:</label>
+                    <div class="col-sm-2">
+                    <select class="currency-list form-control" #selectedFromCurr (change)="selectedFromCurrency(selectedFromCurr.value)" formControlName="from">
+                 <option value="" selected disabled>From Currency</option>
+                <option *ngFor="let from of fromCurrencyArray" [value]="from">{{from}}</option>
+              </select> 
+                    </div>
+                    </div>
+
+                  <div class="form-group ">
+                    <label for="To Currency" class="col-sm-2 control-label">Select ToCurrency:</label>
+                    <div class="col-sm-2">
+                    <select class="currency-list form-control" #selectedToCurr (change)="selectedToCurrency(selectedToCurr.value)" formControlName="to">
+                 <option value="" selected disabled>To Currency</option>
+                <option *ngFor="let to of fromCurrencyArray" [value]="to">{{to}}</option>
+              </select> 
+                    </div>  
+                    </div>
+                   <div class="form-group ">
+                    <label for="date" class="col-sm-2 control-label">Date for Exchange Rate</label>
+                    <div class="col-sm-2">
+                    <div class="input-append date form_datetime">
+                    <input type="date" format="yyyy-mm-dd" name="query-Date"[(ngModel)]="exDate" formControlName="exdate">
+                  </div>
+                    </div>
+                   </div>
+
+                   <div class="form-group ">
+                     <label for="date" class="col-sm-2 control-label">Exchanged Rate</label>
+                     <div class="col-sm-2" style="margin-top:8px;">
+                     <span id="demo" style="color:black;"name="demo" *ngIf="isVal">{{returnVal}}</span>
+                
+                    </div>
+                   </div>
+
+
+
+
+            <!-- <div class="form-group inline-block" >
+                   <select class="currency-list form-control" >
+                 <option value="" selected disabled>From Currency</option>
+                <option *ngFor="let from of fromCurrencyArray">{{from}}</option>
+              </select> 
+            </div>
+
+            <div class="form-group inline-block">
+              
+                <select class="currency-list form-control" >
+                   <option value="" selected disabled>To Currency</option>
+                <option *ngFor="let to of fromCurrencyArray">{{to}}</option>
+              </select>
+            </div> -->
+            <div class="form-group" class="col-sm-4 control-label">
+            <button type="submit" class="btn btn-primary" id="convert" [disabled]="currencyExchangeForm.invalid" (click)="exchangeCurrency()">Convert</button>
+            <button type="submit" class="btn btn-success" id="register" (click)="logout()">Logout</button>
+            </div>
+          <div class="form-group" style="margin-top:100px;">
+            <label for="table" style="color:firebrick;font-size: 20px;font-family: Arial">Your last Searches...</label>
+            <button type="submit"  id="refresh" (click)="refresh()" style="color:blue">  <span class="glyphicon glyphicon-refresh"></span> </button><br>
+            <table class="table table-bordered" >
+                        <thead>
+                          <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Exchange value</th>
+                            <th scope="col">From Currency</th>
+                            <th scope="col">To Currency</th>
+                            <th scope="col">Converted Value</th>
+                            <th scope="col">Query Date</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let data of history;let i = index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{data.exchange_value}}</td>
+                            <td>{{data.from_currency}}</td>
+                            <td>{{data.to_currency}}</td>
+                            <td>{{data.converted_value}}</td>
+                            <td>{{data.query_date}}</td>
+                          </tr>
+                          
+                        </tbody>
+                      </table> 
+                 </div>
+           
+                  
+
+
+          </form>
+          
+        
+      
+    
+  </div>
+  
+</div>
+
+</body>
+</html>
+
+
